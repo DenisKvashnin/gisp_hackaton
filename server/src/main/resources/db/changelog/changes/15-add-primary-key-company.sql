@@ -1,0 +1,1 @@
+ALTER TABLE company ADD PRIMARY KEY (inn);

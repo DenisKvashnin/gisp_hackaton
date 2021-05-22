@@ -1,0 +1,15 @@
+package com.gisp.dto;
+
+import lombok.Data;
+
+@Data
+public class FilterSupportDTO {
+    private String startSum;
+    private String endSum;
+    private String measureType;
+    private String srokSubsidy;
+    private String procentSubsidy;
+    private String srokVozvrata;
+    private String startPprocentVozvrata;
+    private String endProcentVozvrata;
+}

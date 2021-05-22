@@ -1,0 +1,2 @@
+DELETE FROM company WHERE inn = '1838021385';
+DELETE FROM company WHERE inn = '1655294699';

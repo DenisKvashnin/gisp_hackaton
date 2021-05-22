@@ -1,0 +1,56 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="true"
+         monitoring="autodetect"
+         dynamicConfig="true">
+
+    <cache name="findAllRegion"
+           maxEntriesLocalHeap="1000"
+           eternal="true"
+           timeToLiveSeconds="100"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
+    <cache name="findByIdRegion"
+           maxEntriesLocalHeap="1000"
+           eternal="true"
+           timeToLiveSeconds="100"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
+    <cache name="findAllBranch"
+           maxEntriesLocalHeap="1000"
+           eternal="true"
+           timeToLiveSeconds="100"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
+    <cache name="findByIdBranch"
+           maxEntriesLocalHeap="1000"
+           eternal="true"
+           timeToLiveSeconds="100"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
+    <cache name="findAllOkved"
+           maxEntriesLocalHeap="3000"
+           eternal="true"
+           timeToLiveSeconds="100"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
+    <cache name="findByIdOkved"
+           maxEntriesLocalHeap="3000"
+           eternal="true"
+           timeToLiveSeconds="100"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
+    <cache name="filterSupport"
+           maxEntriesLocalHeap="5000"
+           eternal="true"
+           timeToLiveSeconds="100"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
+</ehcache>
