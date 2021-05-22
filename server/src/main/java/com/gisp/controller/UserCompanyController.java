@@ -35,4 +35,10 @@ public class UserCompanyController {
     public ResponseEntity<Company> save(@RequestBody Company company) throws IllegalAccessException {
         return ResponseEntity.ok(userCompanyService.save(company));
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> delete(@RequestBody Company company){
+        userCompanyService.delete(company);
+        return ResponseEntity.noContent().build();
+    }
 }

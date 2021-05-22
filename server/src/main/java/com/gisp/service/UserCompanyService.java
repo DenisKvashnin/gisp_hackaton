@@ -51,4 +51,8 @@ public class UserCompanyService {
         }
         return companyService.save(company);
     }
+
+    public void delete(Company company) {
+        companyService.delete(company);
+    }
 }

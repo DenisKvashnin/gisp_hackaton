@@ -24,4 +24,5 @@
     <include file="changes/17-craete-table-measure-table.sql" relativeToChangelogFile="true"/>
     <include file="changes/18-delete-measure-support-invalid.sql" relativeToChangelogFile="true"/>
     <include file="changes/19-insert-measure-type.sql" relativeToChangelogFile="true"/>
+    <include file="changes/21-create-table-user-count.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

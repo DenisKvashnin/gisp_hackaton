@@ -76,4 +76,8 @@ public class CompanyService {
     public Company findByInn(String companyInn) {
         return companyRepository.findByInn(companyInn);
     }
+
+    public void delete(Company company) {
+        companyRepository.delete(company);
+    }
 }
