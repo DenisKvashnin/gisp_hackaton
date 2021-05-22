@@ -26,7 +26,8 @@ public class SupportOfferService {
                 filterSupportDTO.getProcentSubsidy(),
                 filterSupportDTO.getStartPprocentVozvrata(),
                 filterSupportDTO.getEndProcentVozvrata(),
-                filterSupportDTO.getIsSofinance()
+                filterSupportDTO.getIsSofinance(),
+                filterSupportDTO.getIds()
         );
     }
 }

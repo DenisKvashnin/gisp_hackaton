@@ -28,6 +28,7 @@ public class MeasureSupportService {
         return measureSupportRepository.findById(id);
     }
 
+
     public List<MeasureSupport> filter(String startSum,
                                        String endSum,
                                        String measureType,
@@ -35,7 +36,8 @@ public class MeasureSupportService {
                                        String procentSubsidy,
                                        String startPprocentVozvrata,
                                        String endProcentVozvrata,
-                                       String isSofinance) {
+                                       String isSofinance,
+                                       List<String> ids) {
         List<MeasureSupport> measureSupports = new ArrayList<>();
         if (startSum != null && endSum != null) {
             if (Long.parseLong(startSum) > Long.parseLong(endSum)) {
@@ -51,8 +53,10 @@ public class MeasureSupportService {
                     .filter(f -> Float.parseFloat((f.getStartSum().equals("")
                             ||
                             f.getStartSum().equals(",,")
-                            || f.getStartSum().equals(",")) ? "0.0" : f.getStartSum().replace("," , ".")) >= new Float(startSum))
-                    .filter(f -> Float.parseFloat(f.getEndSum().equals("") ? "99999999.0" : f.getEndSum().replace("," , ".")) <= new Float(endSum))
+                            || f.getStartSum().equals(",")) ? "0.0" :
+                            f.getStartSum().replace("," , ".")) >= new Float(startSum))
+                    .filter(f -> Float.parseFloat(f.getEndSum().equals("") ? "99999999.0"
+                            : f.getEndSum().replace("," , ".")) <= new Float(endSum))
                     .collect(Collectors.toList());
 
             for (FilterSumDTO f : filterSumDTO) {
@@ -92,6 +96,17 @@ public class MeasureSupportService {
                     .collect(Collectors.toList());
         }
 
+        if (ids != null && !ids.isEmpty()) {
+            List<MeasureSupport> filteredByIdSupports = new ArrayList<>();
+            for (String id : ids) {
+                for (MeasureSupport measureSupport : measureSupports) {
+                    if (measureSupport.getId().equals(id)) {
+                        filteredByIdSupports.add(measureSupport);
+                    }
+                }
+            }
+            return filteredByIdSupports;
+        }
         return measureSupports;
     }
 
@@ -100,8 +115,8 @@ public class MeasureSupportService {
     }
 
     public List<MeasureSupport> findByStringIds(List<String> measureSupports) {
-        List<MeasureSupport> result =  new ArrayList<>();
-        for(String s : measureSupports){
+        List<MeasureSupport> result = new ArrayList<>();
+        for (String s : measureSupports) {
             var m = this.findByStringId(s);
             result.add(m);
         }

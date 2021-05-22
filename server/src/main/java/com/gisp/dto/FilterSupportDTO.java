@@ -2,6 +2,8 @@ package com.gisp.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class FilterSupportDTO {
     private String startSum;
@@ -13,4 +15,5 @@ public class FilterSupportDTO {
     private String startPprocentVozvrata;
     private String endProcentVozvrata;
     private String isSofinance;
+    private List<String> ids;
 }
