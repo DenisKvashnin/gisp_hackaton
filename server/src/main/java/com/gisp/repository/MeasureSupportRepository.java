@@ -90,4 +90,9 @@ public interface MeasureSupportRepository extends CrudRepository<MeasureSupport,
 
     @Query("SELECT * FROM measure_support WHERE id = :id")
     MeasureSupport findByStringId(@Param("id") String id);
+
+    @Query("SELECT * FROM measure_support WHERE UPPER (amount_of_support) LIKE \n" +
+            "\t  CASE WHEN UPPER(:measure_type) = 'СУБСИДИЯ' THEN ('%СУБСИ%') WHEN UPPER(:measure_type) = 'КОНСУЛЬТАЦИЯ' THEN ('%КОНСУЛ%') ELSE \n" +
+            "\t('%ЗАЙМ%') END ")
+    List<MeasureSupport> findByMeasureType(@Param("measure_type") String measureType);
 }

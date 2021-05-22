@@ -39,52 +39,63 @@ public class MeasureSupportService {
                                        String isSofinance,
                                        List<String> ids) {
         List<MeasureSupport> measureSupports = new ArrayList<>();
-        if (startSum != null && endSum != null) {
-            if (Long.parseLong(startSum) > Long.parseLong(endSum)) {
-                return Collections.emptyList();
-            }
-        }
-        if (measureType.equalsIgnoreCase("ЗАЙМ")) {
-            List<FilterSumDTO> filterSumDTO = measureSupportRepository.filterBySum(
-                    measureType)
-                    .stream()
-                    .filter(f -> f.getStartSum() != null)
-                    .filter(f -> f.getEndSum() != null)
-                    .filter(f -> Float.parseFloat((f.getStartSum().equals("")
-                            ||
-                            f.getStartSum().equals(",,")
-                            || f.getStartSum().equals(",")) ? "0.0" :
-                            f.getStartSum().replace("," , ".")) >= new Float(startSum))
-                    .filter(f -> Float.parseFloat(f.getEndSum().equals("") ? "99999999.0"
-                            : f.getEndSum().replace("," , ".")) <= new Float(endSum))
-                    .collect(Collectors.toList());
 
-            for (FilterSumDTO f : filterSumDTO) {
-                MeasureSupport measureSupportOpt = measureSupportRepository.findById1(f.getId());
-                measureSupports.add(measureSupportOpt);
-            }
-        } else if (measureType.equalsIgnoreCase("СУБСИДИЯ")) {
-            List<FilterSumDTO> filterSumDTOS = measureSupportRepository
-                    .filterSubs()
+        if (startSum == null && endSum == null || measureType == null || isSofinance == null) {
+            measureSupports = measureSupportRepository
+                    .findAll()
                     .stream()
-                    .filter(f -> f.getStartSum() != null)
-                    .filter(f -> f.getEndSum() != null)
-                    .filter(f -> Float.parseFloat(f.getEndSum()) <= Float.parseFloat(endSum))
+                    .limit(100)
                     .collect(Collectors.toList());
-            for (FilterSumDTO f : filterSumDTOS) {
-                MeasureSupport measureSupportOpt = measureSupportRepository.findById1(f.getId());
-                measureSupports.add(measureSupportOpt);
+        } else if (startSum == null && endSum == null || measureType != null) {
+            measureSupports = measureSupportRepository.findByMeasureType(measureType);
+        } else {
+            if (startSum != null && endSum != null) {
+                if (Long.parseLong(startSum) > Long.parseLong(endSum)) {
+                    return Collections.emptyList();
+                }
             }
-        } else if (measureType.equalsIgnoreCase("КОНСУЛЬТАЦИЯ")) {
-            List<FilterSumDTO> filterSumDTOS = measureSupportRepository.findConsultation()
-                    .stream()
-                    .filter(f -> f.getStartSum() != null)
-                    .filter(f -> f.getEndSum() != null)
-                    .filter(f -> Float.parseFloat(f.getEndSum()) <= new Float(endSum))
-                    .collect(Collectors.toList());
-            for (FilterSumDTO f : filterSumDTOS) {
-                MeasureSupport measureSupportOpt = measureSupportRepository.findById1(f.getId());
-                measureSupports.add(measureSupportOpt);
+            if (measureType.equalsIgnoreCase("ЗАЙМ")) {
+                List<FilterSumDTO> filterSumDTO = measureSupportRepository.filterBySum(
+                        measureType)
+                        .stream()
+                        .filter(f -> f.getStartSum() != null)
+                        .filter(f -> f.getEndSum() != null)
+                        .filter(f -> Float.parseFloat((f.getStartSum().equals("")
+                                ||
+                                f.getStartSum().equals(",,")
+                                || f.getStartSum().equals(",")) ? "0.0" :
+                                f.getStartSum().replace("," , ".")) >= new Float(startSum))
+                        .filter(f -> Float.parseFloat(f.getEndSum().equals("") ? "99999999.0"
+                                : f.getEndSum().replace("," , ".")) <= new Float(endSum))
+                        .collect(Collectors.toList());
+
+                for (FilterSumDTO f : filterSumDTO) {
+                    MeasureSupport measureSupportOpt = measureSupportRepository.findById1(f.getId());
+                    measureSupports.add(measureSupportOpt);
+                }
+            } else if (measureType.equalsIgnoreCase("СУБСИДИЯ")) {
+                List<FilterSumDTO> filterSumDTOS = measureSupportRepository
+                        .filterSubs()
+                        .stream()
+                        .filter(f -> f.getStartSum() != null)
+                        .filter(f -> f.getEndSum() != null)
+                        .filter(f -> Float.parseFloat(f.getEndSum()) <= Float.parseFloat(endSum))
+                        .collect(Collectors.toList());
+                for (FilterSumDTO f : filterSumDTOS) {
+                    MeasureSupport measureSupportOpt = measureSupportRepository.findById1(f.getId());
+                    measureSupports.add(measureSupportOpt);
+                }
+            } else if (measureType.equalsIgnoreCase("КОНСУЛЬТАЦИЯ")) {
+                List<FilterSumDTO> filterSumDTOS = measureSupportRepository.findConsultation()
+                        .stream()
+                        .filter(f -> f.getStartSum() != null)
+                        .filter(f -> f.getEndSum() != null)
+                        .filter(f -> Float.parseFloat(f.getEndSum()) <= new Float(endSum))
+                        .collect(Collectors.toList());
+                for (FilterSumDTO f : filterSumDTOS) {
+                    MeasureSupport measureSupportOpt = measureSupportRepository.findById1(f.getId());
+                    measureSupports.add(measureSupportOpt);
+                }
             }
         }
 
@@ -110,6 +121,7 @@ public class MeasureSupportService {
         return measureSupports;
     }
 
+
     public MeasureSupport findByStringId(String id) {
         return measureSupportRepository.findByStringId(id);
     }
@@ -117,7 +129,7 @@ public class MeasureSupportService {
     public List<MeasureSupport> findByStringIds(List<String> measureSupports) {
         List<MeasureSupport> result = new ArrayList<>();
         for (String s : measureSupports) {
-            var m = this.findByStringId(s);
+            var m = findByStringId(s);
             result.add(m);
         }
         return result;
