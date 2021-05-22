@@ -11,7 +11,6 @@ public interface CompanyRepository extends CrudRepository<Company, String> {
     List<Company> findAll();
 
     @Query("SELECT * FROM company WHERE inn = :company_inn")
-
     Company findByInn(@Param("company_inn") String companyInn);
 
 

@@ -33,7 +33,7 @@ public interface MeasureSupportRepository extends CrudRepository<MeasureSupport,
             "      FROM (SELECT trim(regexp_replace(src1.summ, '[^0-9,]+', ' ', 'g')) summ1, src1.id\n" +
             "            FROM (SELECT (regexp_match(UPPER(amount_of_support), 'СУММА '||UPPER(:measure_type)||'.*МЛН'))[1] summ, ms.id\n" +
             "\t\t\t\t  FROM measure_support ms\n" +
-            "                  WHERE UPPER (amount_of_support) LIKE ('%СУММА%' || UPPER(:measure_type) || '%')) src1) src")
+            "                  WHERE is_not_active = 'false' AND UPPER (amount_of_support) LIKE ('%СУММА%' || UPPER(:measure_type) || '%')) src1) src")
     List<FilterSumDTO> filterBySum(@Param("measure_type") String measureType);
 
     @Query("SELECT * FROM measure_support WHERE id = :id")
@@ -65,7 +65,7 @@ public interface MeasureSupportRepository extends CrudRepository<MeasureSupport,
             "                              UPPER('НО НЕ БОЛЕЕ.*[МЛН|РУБ|ТЫС]')))[1], \n" +
             "\t   amount_of_support summ, ms.id\n" +
             "         FROM measure_support ms\n" +
-            "         WHERE UPPER (amount_of_support) LIKE UPPER ('%СУБСИ%') AND (regexp_match(UPPER(amount_of_support),\n" +
+            "         WHERE AND is_not_active = 'false' AND UPPER (amount_of_support) LIKE UPPER ('%СУБСИ%') AND (regexp_match(UPPER(amount_of_support),\n" +
             "                              UPPER('НО НЕ БОЛЕЕ.*[МЛН|РУБ|ТЫС|МИЛЛ]')))[1] NOT IN ('10 30 100 1 80 50 1 100 100 5 200') \n" +
             "AND id NOT IN ('8308297', '7763874')) src1\n" +
             "WHERE ROUND(\n" +
@@ -84,6 +84,10 @@ public interface MeasureSupportRepository extends CrudRepository<MeasureSupport,
     List<FilterSumDTO> filterSubs();
 
     @Query("SELECT * FROM measure_support ms\n" +
-            "            WHERE UPPER (amount_of_support) LIKE UPPER('%Консульт%') OR UPPER(small_name) LIKE UPPER('%Консульт%')")
+            "            WHERE UPPER (amount_of_support) LIKE UPPER('%Консульт%') OR UPPER(small_name) LIKE UPPER('%Консульт%') " +
+            "AND is_not_active = 'false'")
     List<FilterSumDTO> findConsultation();
+
+    @Query("SELECT * FROM measure_support WHERE id = :id")
+    MeasureSupport findByStringId(@Param("id") String id);
 }

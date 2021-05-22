@@ -21,7 +21,7 @@ import javax.servlet.MultipartConfigElement;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.gisp.repository")
 @OpenAPIDefinition(servers = {
-       // @Server(url = "https://gisp-api.kovalev.team"),
+        @Server(url = "https://gisp-api.kovalev.team"),
         @Server(url = "http://localhost:8888")}
 )
 public class GispApplication {

@@ -3,10 +3,7 @@ package com.gisp.controller;
 import com.gisp.domain.MeasureSupport;
 import com.gisp.service.MeasureSupportService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,8 +25,12 @@ public class MeasureSupportController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MeasureSupport> findById(@PathVariable("id") Long id){
-        Optional<MeasureSupport> measureSupportOpt = measureSupportService.findById(id);
-        return measureSupportOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<MeasureSupport> findById(@PathVariable("id") String id){
+        return ResponseEntity.ok(measureSupportService.findByStringId(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<List<MeasureSupport>> findById(@RequestBody List<String> measureSupports){
+        return ResponseEntity.ok(measureSupportService.findByStringIds(measureSupports));
     }
 }

@@ -12,4 +12,5 @@ public class FilterSupportDTO {
     private String srokVozvrata;
     private String startPprocentVozvrata;
     private String endProcentVozvrata;
+    private String isSofinance;
 }
