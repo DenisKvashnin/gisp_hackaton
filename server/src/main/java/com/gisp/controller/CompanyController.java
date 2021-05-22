@@ -35,4 +35,9 @@ public class CompanyController {
         companyService.delete(company);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/findByInn")
+    public ResponseEntity<Company> findByInn(@RequestParam String inn){
+        return ResponseEntity.ok(companyService.findByInn(inn));
+    }
 }

@@ -5,10 +5,7 @@ import com.gisp.dto.FilterSumDTO;
 import com.gisp.repository.MeasureSupportRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,15 +37,15 @@ public class MeasureSupportService {
                                        List<String> ids) {
         List<MeasureSupport> measureSupports = new ArrayList<>();
 
-        if (startSum == null && endSum == null || measureType == null || isSofinance == null) {
-            measureSupports = measureSupportRepository
-                    .findAll()
-                    .stream()
-                    .limit(100)
-                    .collect(Collectors.toList());
-        } else if (startSum == null && endSum == null || measureType != null) {
+        if ((startSum == null && endSum == null && measureType == null && isSofinance == null)
+                || (Objects.equals(startSum, "") && Objects.equals(endSum, "") && measureType.equals(""))) {
+            measureSupports = measureSupportRepository.findAll();
+        } else if (startSum == null && endSum == null && measureType != null) {
             measureSupports = measureSupportRepository.findByMeasureType(measureType);
-        } else {
+        } else if ((Objects.equals(startSum, "") && Objects.equals(endSum, "") && !measureType.equals(""))){
+            measureSupports = measureSupportRepository.findByMeasureType(measureType);
+        }
+        else {
             if (startSum != null && endSum != null) {
                 if (Long.parseLong(startSum) > Long.parseLong(endSum)) {
                     return Collections.emptyList();
@@ -111,12 +108,18 @@ public class MeasureSupportService {
             List<MeasureSupport> filteredByIdSupports = new ArrayList<>();
             for (String id : ids) {
                 for (MeasureSupport measureSupport : measureSupports) {
-                    if (measureSupport.getId().equals(id)) {
+                    if (measureSupport.getId() == Long.parseLong(id)) {
                         filteredByIdSupports.add(measureSupport);
                     }
                 }
             }
+            if (filteredByIdSupports.size() > 100) {
+                return filteredByIdSupports.stream().limit(100).collect(Collectors.toList());
+            }
             return filteredByIdSupports;
+        }
+        if (measureSupports.size() > 100) {
+            return measureSupports.stream().limit(100).collect(Collectors.toList());
         }
         return measureSupports;
     }
