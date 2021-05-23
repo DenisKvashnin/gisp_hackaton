@@ -66,7 +66,7 @@ public interface MeasureSupportRepository extends CrudRepository<MeasureSupport,
             "                              UPPER('НО НЕ БОЛЕЕ.*[МЛН|РУБ|ТЫС]')))[1], \n" +
             "\t   amount_of_support summ, ms.id\n" +
             "         FROM measure_support ms\n" +
-            "         WHERE AND is_not_active = 'false' AND UPPER (amount_of_support) LIKE UPPER ('%СУБСИ%') AND (regexp_match(UPPER(amount_of_support),\n" +
+            "         WHERE is_not_active = 'false' AND UPPER (amount_of_support) LIKE UPPER ('%СУБСИ%') AND (regexp_match(UPPER(amount_of_support),\n" +
             "                              UPPER('НО НЕ БОЛЕЕ.*[МЛН|РУБ|ТЫС|МИЛЛ]')))[1] NOT IN ('10 30 100 1 80 50 1 100 100 5 200') \n" +
             "AND id NOT IN ('8308297', '7763874')) src1\n" +
             "WHERE ROUND(\n" +

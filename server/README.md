@@ -9,6 +9,7 @@
 ###Запуск
 * Установить **JDK 11 Liberica**: https://bell-sw.com/pages/downloads/#/java-11-lts
 * Установить **maven**: https://maven.apache.org/
-* TODO как запускать 
+* выполнить в корне проекта **mvn clean package**
+* запустить сервер java -jar target/*.jar
 
 
