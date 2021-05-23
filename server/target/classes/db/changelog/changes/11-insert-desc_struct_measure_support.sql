@@ -1,0 +1,39 @@
+INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('ID','Record ID','Идентификатор записи','integer
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('URL','Record URL','URL записи','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('SMALL_NAME','Name for the support measure','Краткое наименование меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('FULL_NAME','Full name for support measure','Полное наименование меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('NUMBER_NPA','NPA number for support measure','Номер НПА меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('DATE_NPA','NPA date for support measure','Дата НПА меры поддержки','date
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('NPA_NAME','NPA name for support measure','Полное наименование НПА (ЛНА) меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('DESCRIPTION','Description for support measure','Описание меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('PURPOSE','Purpose of support measure','Цели предоставления поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('OBJECTIVE','Objective of support measure','Задачи предоставления поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('TYPE_MERA','Type of support measure','Тип меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('TYPE_FORMAT_SUPPORT','Format of support measure','Формат предоставления поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('SROK_VOZVRATA','Return time of support','Срок возврата предоставленной поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('PROCENT_VOZVRATA','Interest rate of support','Процентная ставка предоставления поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('GUARANTE_PERIODE','Period of guarantee','Срок предоставления гарантии','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('GUARANTEE_COST','Cost of guarantee','Стоимость предоставления гарантии','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('APPLIANCE_ID','List of supported industries','Список поддерживаемых отраслей','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('OKVED2','List of OKVED2 codes','Список кодов ОКВЭД2, к которым применима мера поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('COMPLEXITY','List of supported complexities','Список типов проблем, на решение которых направлена мера поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('AMOUNT_OF_SUPPORT','Amount of support measure','Методика расчета величины поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('REGULARITY_SELECT','Regularity of support measure','Регулярность оказания меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('PERIOD','Period of support measure','Периодичность рассмотрения заявок на предоставление меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('DOGOVOR','Is support measure can be used in current agreements','Распространяется ли мера поддержки на действующие договоры','boolean
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('GOS_PROGRAM','List of government programs ','Список госпрограмм, в которые входит мера поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('EVENT','List of events ','Мероприятия, в которые входит мера поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('DOP_INFO','Additional information about support measure','Дополнительная информация по мере поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('IS_NOT_ACTIVE','Marks inactive support measures','Мера поддержки неактивна','boolean
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('PRICHINA_NOT_ACT','Reason of inactivity','Причина неактивности меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('REQ_ZAYAVITEL','Requierements for the applicant','Требования к заявителю','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('REQUEST_PROJECT','Project requierements','Требования к проекту','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('IS_SOFINANCE','Need for co-financing of the project','Необходимость софинансирования проекта','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('DOLYA_ISOFINANCE','Share of requiered co-financing','Доля необходимого софинансирования','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('BUDGET_PROJECT','Budget of project','Допустимый бюджет проекта','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('POKAZATEL_RESULT','List of performance indicators','Список показателей результативности проекта','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('TERRITORIAL_LEVEL','Territorial level of support measure','Территориальный уровень меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('REGION_ID','Region of support measure','Регион','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('RESPONS_STRUCTURE','Support measure administrator','Администратор меры поддержки','string
+');INSERT INTO desc_struct_measure_support(field_name, english_description, russian_description, format) VALUES ('ORG_ID','Organization providing support','Организация, предоставляющая меру поддержки','string
+');

@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gisp
+    username: postgres
+    password: example
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.xml
+  cache:
+    jcache:
+      config: ehcache.xml
+logging:
+  level:
+    liquibase: INFO
+
+server:
+  port: 8888
+
+

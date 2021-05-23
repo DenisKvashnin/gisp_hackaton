@@ -53,6 +53,7 @@ public class UserCompanyService {
     }
 
     public void delete(Company company) {
-        companyService.delete(company);
+        UserCompany userCompany = userCompanyRepository.findByInn(company.getInn());
+        userCompanyRepository.delete(userCompany);
     }
 }
