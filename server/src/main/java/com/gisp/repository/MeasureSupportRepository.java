@@ -1,5 +1,6 @@
 package com.gisp.repository;
 
+import com.gisp.domain.CompareMeasureSupportDTO;
 import com.gisp.domain.MeasureSupport;
 import com.gisp.dto.FilterSumDTO;
 import org.springframework.data.jdbc.repository.query.Query;
@@ -91,8 +92,49 @@ public interface MeasureSupportRepository extends CrudRepository<MeasureSupport,
     @Query("SELECT * FROM measure_support WHERE id = :id")
     MeasureSupport findByStringId(@Param("id") String id);
 
-    @Query("SELECT * FROM measure_support WHERE UPPER (amount_of_support) LIKE \n" +
-            "\t  CASE WHEN UPPER(:measure_type) = 'СУБСИДИЯ' THEN ('%СУБСИ%') WHEN UPPER(:measure_type) = 'КОНСУЛЬТАЦИЯ' THEN ('%КОНСУЛ%') ELSE \n" +
-            "\t('%ЗАЙМ%') END ")
+    @Query("SELECT *\n" +
+            "FROM measure_support\n" +
+            "WHERE CASE\n" +
+            "          WHEN UPPER(:measure_type) = 'СУБСИДИЯ' THEN UPPER(amount_of_support) LIKE ('%СУБСИ%')\n" +
+            "          WHEN UPPER(:measure_type) = 'КОНСУЛЬТАЦИЯ' THEN UPPER(amount_of_support) LIKE ('%КОНСУЛ%')\n" +
+            "          WHEN UPPER(:measure_type) = 'НЕМАТЕРИАЛЬНЫЕ' THEN\n" +
+            "                      UPPER(appliance_id) LIKE UPPER(('%Радиоэлектронная промышленность%')) AND\n" +
+            "                      (UPPER(small_name) LIKE UPPER('%Поддержка МСП%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Предоставление налоговых и административных преференций%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER(\n" +
+            "                               '%/Поддержка малого бизнеса и индивидуальной/Взаимодействие с инвесторами/Режим \"одного окна\" для инвесторов%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Переводческие услуги%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Проведение маркетинговых%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Содействие в подготовке и экспертизе%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Содействие в стандартизации%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Защита интеллектуальной собственности%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Защита интеллектуальной собственности%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Соглашение о защите и поощрении%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Защита интеллектуальной собственности%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Поиск партнеров%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Организация и проведение публичных%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Размещение на электронных-торговых площадках%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Национальные чемпионы%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Государственные научные гранты%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Центр инжиниринга/Особая экономическая зона%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('Проведение специальных программ обучения%') OR\n" +
+            "                       UPPER(small_name) LIKE UPPER('%Консультационная поддержка%')\n" +
+            "                          )\n" +
+            "          ELSE\n" +
+            "              UPPER(amount_of_support) LIKE UPPER('%Займ%')\n" +
+            "          END")
     List<MeasureSupport> findByMeasureType(@Param("measure_type") String measureType);
+
+    @Query("SELECT id, start_sum, end_sum FROM (SELECT\n" +
+            "\tsubstring(src.summ1, 0, Position(' ' in src.summ1)) start_sum\n" +
+            "\t,substring(replace(src.summ1, ' ', ''), Position(' ' in src.summ1)) end_sum\n" +
+            "\t,ms1.*\n" +
+            "   FROM (SELECT replace(trim(regexp_replace(src1.summ, '[^0-9,]+' , ' ', 'g')), ',', '.') summ1, src1.id\n" +
+            "            FROM (SELECT (regexp_match(UPPER(amount_of_support), UPPER('СУММА .*МЛН')))[1] summ, ms.id\n" +
+            "\t\t\t\t  FROM measure_support ms) src1) src\n" +
+            "\tJOIN measure_support ms1 ON ms1.id = src.id ) src\n" +
+            "\tWHERE start_sum IS NOT NULL \n" +
+            "\tAND end_sum IS NOT NULL \n" +
+            "\tAND id = :id")
+    CompareMeasureSupportDTO findCompareInfoById(@Param("id") String id);
 }

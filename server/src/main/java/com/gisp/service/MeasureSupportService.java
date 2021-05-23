@@ -1,5 +1,6 @@
 package com.gisp.service;
 
+import com.gisp.domain.CompareMeasureSupportDTO;
 import com.gisp.domain.MeasureSupport;
 import com.gisp.dto.FilterSumDTO;
 import com.gisp.repository.MeasureSupportRepository;
@@ -93,6 +94,8 @@ public class MeasureSupportService {
                     MeasureSupport measureSupportOpt = measureSupportRepository.findById1(f.getId());
                     measureSupports.add(measureSupportOpt);
                 }
+            }else if(measureType.equalsIgnoreCase("НЕМАТЕРИАЛЬНЫЕ")){
+                measureSupports = measureSupportRepository.findByMeasureType(measureType);
             }
         }
 
@@ -136,5 +139,9 @@ public class MeasureSupportService {
             result.add(m);
         }
         return result;
+    }
+
+    public CompareMeasureSupportDTO findCompareInfoById(String id) {
+       return measureSupportRepository.findCompareInfoById(id);
     }
 }
